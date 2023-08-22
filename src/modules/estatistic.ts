@@ -1,18 +1,17 @@
 import countBy from "./countBy.js";
 
 export default class Estatistic {
-  private transacoes : Transacao[] | false;
-
+  private transacoes;
   //origamid
-  // pagamento;
-  // status;
+  pagamento;
+  status;
 
   constructor(transacoes : Transacao[]) {
     this.transacoes = transacoes;
 
     // origamid
-    // this.pagamento = this.setPagamento();
-    // this.status = this.setStatus();
+    this.pagamento = this.setPagamento();
+    this.status = this.setStatus();
   }
 
   public setTotal() : number {
@@ -57,15 +56,10 @@ export default class Estatistic {
   // }
 
   // origamid
-  // funcionam mas precisa colocar o typeof
   public setPagamento() {
-    if (typeof this.transacoes !== 'boolean')
     return countBy(this.transacoes.map(({ pagamento }) => pagamento));
-    else return null;
   }
   public setStatus() {
-    if (typeof this.transacoes !== 'boolean')
     return countBy(this.transacoes.map(({ status }) => status));
-    else return null
   }
 }

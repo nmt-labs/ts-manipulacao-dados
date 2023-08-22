@@ -23,7 +23,7 @@ async function handleData() {
   });
 
   const divPag = document.querySelectorAll('#pagamento > p');
-  if (divPag && transacaoPagamento) {
+  if (divPag) {
     const divArray = Array.from(divPag);
     divArray.forEach((item, index) => {
       item.innerHTML = `${transacaoPagamento[index]}`
@@ -31,7 +31,7 @@ async function handleData() {
   }
 
   const divStatus = document.querySelectorAll('#status > p');
-  if (divStatus && transacaoStatus) {
+  if (divStatus) {
     const divArray = Array.from(divStatus);
     divArray.forEach((item, index) => {
       item.innerHTML = `${transacaoStatus[index]}`
