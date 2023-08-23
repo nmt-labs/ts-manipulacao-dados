@@ -1,3 +1,4 @@
+import { CountList } from "./modules/countBy.js";
 import Estatistic from "./modules/estatistic.js";
 import fetchData from "./modules/fetchData.js";
 import normalizar from "./modules/normalizarTransacao.js";
@@ -7,36 +8,41 @@ async function handleData() {
   const data = await fetchData<TransacaoAPI[]>('https://api.origamid.dev/json/transacoes.json?');
   if (!data) return;
   const transacoes = data.map(normalizar);
+  preencherEstatisticas(transacoes);
+  preencherTabela(transacoes);
+}
 
+function preencherTabela(transacoes: Transacao[] ){
   const table = new Table('#table', transacoes);
+
   table.init();
+}
 
-  const estatistics = new Estatistic(transacoes);
-  const total = estatistics.setTotal();
-  const transacaoPagamento = estatistics.setPagamento();
-  const transacaoStatus = estatistics.setStatus();
+// preenche com a chave e o valor de um objeto CountList
+function preencherLista(lista: CountList, containerId: string): void {
+  // seleciona elemento pelo ID
+  const containerElement = document.getElementById(containerId);
+  if (containerElement) {
+    // se elemento existir, e criada um <p> para cada chave do objeto e seu respectivo valor
+    Object.keys(lista).forEach((key) => {
+      containerElement.innerHTML += `<p>${key}: ${lista[key]}</p>`;
+    });
+  }
+}
 
-  const pTotal = document.querySelector('#total')
-  if(pTotal) pTotal.innerHTML = total.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  });
+function preencherEstatisticas(transacoes: Transacao[]) {
+  const data = new Estatistic(transacoes);
 
-  const divPag = document.querySelectorAll('#pagamento > p');
-  if (divPag) {
-    const divArray = Array.from(divPag);
-    divArray.forEach((item, index) => {
-      item.innerHTML = `${transacaoPagamento[index]}`
+  const total = document.querySelector<HTMLElement>("#total span");
+  if (total) {
+    total.innerText = data.total.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
     });
   }
 
-  const divStatus = document.querySelectorAll('#status > p');
-  if (divStatus) {
-    const divArray = Array.from(divStatus);
-    divArray.forEach((item, index) => {
-      item.innerHTML = `${transacaoStatus[index]}`
-    });
-  }
+  preencherLista(data.pagamento, 'pagamento');
+  preencherLista(data.status, 'status');
 }
 
 handleData();

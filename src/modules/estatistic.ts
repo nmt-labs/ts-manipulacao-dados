@@ -3,6 +3,7 @@ import countBy from "./countBy.js";
 export default class Estatistic {
   private transacoes;
   //origamid
+  total;
   pagamento;
   status;
 
@@ -10,20 +11,29 @@ export default class Estatistic {
     this.transacoes = transacoes;
 
     // origamid
+    this.total = this.setTotal();
     this.pagamento = this.setPagamento();
     this.status = this.setStatus();
   }
 
-  public setTotal() : number {
+  private setTotal() : number {
     let total = 0;
-
+    
     if (typeof this.transacoes !== 'boolean') {
       this.transacoes.forEach(t => {
         if (t.valor) total += t.valor;
       });
     }
-
+    
     return total;
+  }
+  
+  // origamid
+  private setPagamento() {
+    return countBy(this.transacoes.map(({ pagamento }) => pagamento));
+  }
+  private setStatus() {
+    return countBy(this.transacoes.map(({ status }) => status));
   }
 
   // esse eu que fiz mas acho pouco eficiente
@@ -54,12 +64,4 @@ export default class Estatistic {
 
   //   return resultado;
   // }
-
-  // origamid
-  public setPagamento() {
-    return countBy(this.transacoes.map(({ pagamento }) => pagamento));
-  }
-  public setStatus() {
-    return countBy(this.transacoes.map(({ status }) => status));
-  }
 }

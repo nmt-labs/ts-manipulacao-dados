@@ -26,8 +26,7 @@
       background-color: ghostwhite;
     }
 
-    h2,
-    p {
+    h2, h3, p {
       margin-left: 1rem;
     }
 
@@ -43,30 +42,12 @@
 </head>
 
 <body>
-  <h2>Estatisticas</h2>
-  <h3>Valor Total</h3>
-  <p id="total"></p>
-
-  <h3>Transação Por Pagamaneto</h3>
-  <div id="pagamento">
-    <h3>Cartão</h3>
-    <p></p>
-    <h3>Boleto</h3>
-    <p></p>
-  </div>
-
-  <h3>Transação Por Status</h3>
-  <div id="status">
-    <h3>Paga</h3>
-    <p></p>
-    <h3>Recusada</h3>
-    <p></p>
-    <h3>Aguardando</h3>
-    <p></p>
-    <h3>Estornada</h3>
-    <p></p>
-  </div>
-
+  <h2>Estatísticas</h2>
+  <p id="total">Total: <span></span></p>
+  <h3>Pagamento</h3>
+  <div id="pagamento"></div>
+  <h3>Status</h3>
+  <div id="status"></div>
   <h2>Dados</h2>
   <table id="table">
     <thead>
@@ -80,9 +61,6 @@
     </thead>
     <tbody></tbody>
   </table>
-
-  <h3>Dia com mais vendas</h3>
-  <p id="vendas"></p>
 
   <script type="module" src="./dist/main.js"></script>
 </body>

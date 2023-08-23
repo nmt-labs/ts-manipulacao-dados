@@ -8,7 +8,7 @@ export default class Table {
   }
 
   private async createTable() {
-  if (this.table instanceof HTMLElement) {
+    if (this.table instanceof HTMLElement) {
       this.transacoes.forEach(t => {
         if(this.table)
         this.table.innerHTML += `
