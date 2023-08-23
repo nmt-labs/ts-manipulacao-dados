@@ -41,6 +41,9 @@ function preencherEstatisticas(transacoes: Transacao[]) {
     });
   }
 
+  const diaElement = document.querySelector<HTMLElement>("#dia span");
+  if (diaElement) diaElement.innerText = data.melhorDia[0];
+
   preencherLista(data.pagamento, 'pagamento');
   preencherLista(data.status, 'status');
 }
